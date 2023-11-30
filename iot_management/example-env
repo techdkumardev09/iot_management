@@ -1,0 +1,20 @@
+For postgresql Database
+
+DATABASE_NAME='iotdevice_db'
+DATABASE_USER='admin_user'
+DATABASE_PASSWORD='admin'
+DATABASE_HOST='localhost'
+DATABASE_PORT='5432'
+ALLOWED_HOSTS="localhost:8000"
+
+
+For INFLUXDB Database
+
+database='Influx_db'
+username='admin_user'
+password='admin'
+host='localhost'
+port='5432'
+host="localhost:8000"
+ssl: False,
+verify_ssl: False,
