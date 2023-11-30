@@ -13,3 +13,13 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+
+class Device(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    telemetry_data = models.JSONField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name

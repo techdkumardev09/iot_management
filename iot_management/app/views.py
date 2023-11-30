@@ -1,9 +1,12 @@
 # app/views.py
 
-from rest_framework import generics
+from rest_framework import generics, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
+
+from app.models import Device
+from .serializers import DeviceSerializer, UserSerializer
+
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserRegistrationView(generics.CreateAPIView):
@@ -21,3 +24,9 @@ class UserRegistrationView(generics.CreateAPIView):
         }
 
         return Response(response_data, status=status.HTTP_201_CREATED)
+    
+
+class DeviceViewSet(viewsets.ModelViewSet):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    permission_classes = [permissions.IsAuthenticated]
