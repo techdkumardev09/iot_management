@@ -4,8 +4,8 @@ from rest_framework import generics, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework import status
 
-from app.models import Device
-from .serializers import DeviceSerializer, UserSerializer
+from app.models import Device, TelemetryData
+from .serializers import DeviceSerializer, TelemetryDataSerializer, UserSerializer
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -30,3 +30,9 @@ class DeviceViewSet(viewsets.ModelViewSet):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class TelemetryDataViewSet(viewsets.ModelViewSet):
+    queryset = TelemetryData.objects.all()
+    serializer_class = TelemetryDataSerializer
+    # permission_classes = [permissions.IsAuthenticated]

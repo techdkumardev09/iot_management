@@ -32,15 +32,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_yasg'
+    'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -84,16 +84,29 @@ WSGI_APPLICATION = 'iot_management.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'iotdevice_db',
         'USER': 'admin_user',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'HOST': 'db',
+        'PORT': '5432',
+    },
+    'timescaledb': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'iotdevice_db',
+        'USER': 'admin_user',
+        'PASSWORD': 'admin',
+        'HOST': 'timescaledb',  # Docker service name for TimescaleDB
         'PORT': '5432',
     }
 }
+
+DATABASE_ROUTERS = ['app.router.TelemetryDataRouter']  # Add the router path here
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

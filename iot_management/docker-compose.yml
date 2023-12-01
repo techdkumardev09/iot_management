@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  # Django Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # Adjust port if necessary
+    volumes:
+      - .:/app  # Mount your Django project directory
+    depends_on:
+      - db
+ 
+  # PostgreSQL Service
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: iotdevice_db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./pgg_data:/var/lib/postgresql/data
+
+  # TimescaleDB Extension
+  timescaledb:
+    image: timescale/timescaledb:latest-pg13
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: iotdevice_db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: admin
+      TSDB_TELEMETRY_DB: iot_timescaledb  # Specify TimescaleDB database name
+    command: ["postgres", "-c", "shared_preload_libraries=timescaledb"]
+
+volumes:
+  postgres_data:  # Volume for PostgreSQL data persistence

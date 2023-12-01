@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Device
+from .models import CustomUser, Device, TelemetryData
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,10 @@ class UserSerializer(serializers.ModelSerializer):
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
+        fields = '__all__'
+
+
+class TelemetryDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelemetryData
         fields = '__all__'

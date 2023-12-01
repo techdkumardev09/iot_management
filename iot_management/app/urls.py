@@ -2,10 +2,11 @@
 
 from django.urls import path, include
 from rest_framework import routers
-from app.views import DeviceViewSet, UserRegistrationView
+from app.views import DeviceViewSet, TelemetryDataViewSet, UserRegistrationView
 
 router = routers.DefaultRouter()
 router.register(r'devices', DeviceViewSet)
+router.register(r'telemetry', TelemetryDataViewSet)
 
 
 urlpatterns = [

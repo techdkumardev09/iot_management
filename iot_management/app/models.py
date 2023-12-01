@@ -23,3 +23,12 @@ class Device(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class TelemetryData(models.Model):
+    device_id = models.IntegerField(primary_key=True)
+    timestamp = models.DateTimeField()
+    value = models.FloatField()
+
+    class Meta:
+        db_table = 'telemetry_data'
