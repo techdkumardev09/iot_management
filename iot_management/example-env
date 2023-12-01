@@ -1,20 +1,20 @@
 For postgresql Database
 
-DATABASE_NAME='iotdevice_db'
+DATABASE_NAME='iotdevice_db_1'
 DATABASE_USER='admin_user'
 DATABASE_PASSWORD='admin'
-DATABASE_HOST='localhost'
+DATABASE_HOST='db'
 DATABASE_PORT='5432'
 ALLOWED_HOSTS="localhost:8000"
 
 
-For INFLUXDB Database
+For timescaledb Database
 
-database='Influx_db'
+database='iotdevice_db_1'
 username='admin_user'
 password='admin'
-host='localhost'
+host='timescaledb'
 port='5432'
 host="localhost:8000"
-ssl: False,
-verify_ssl: False,
+ssl: False
+verify_ssl: False

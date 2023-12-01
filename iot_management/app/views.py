@@ -10,9 +10,20 @@ from .serializers import DeviceSerializer, TelemetryDataSerializer, UserSerializ
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserRegistrationView(generics.CreateAPIView):
+    """
+    API view for user registration.
+
+    Creates a new user using the provided data, generates refresh and access tokens,
+    and returns the tokens in the response upon successful registration.
+    """
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
+        """
+        Handle POST requests for user registration.
+
+        Returns a response containing refresh and access tokens upon successful registration.
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -27,12 +38,24 @@ class UserRegistrationView(generics.CreateAPIView):
     
 
 class DeviceViewSet(viewsets.ModelViewSet):
+    """
+    API viewset for managing devices.
+
+    Performs CRUD operations on Device objects, utilizing the DeviceSerializer for data representation.
+    Requires authentication for access.
+    """
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class TelemetryDataViewSet(viewsets.ModelViewSet):
+    """
+    API viewset for managing telemetry data.
+
+    Performs CRUD operations on TelemetryData objects, utilizing the TelemetryDataSerializer for data representation.
+    Requires authentication for access.
+    """
     queryset = TelemetryData.objects.all()
     serializer_class = TelemetryDataSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
