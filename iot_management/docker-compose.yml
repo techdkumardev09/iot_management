@@ -12,6 +12,8 @@ services:
       - .:/app  # Mount your Django project directory
     depends_on:
       - db
+    networks:
+      - webnet
  
   # PostgreSQL Service
   db:
@@ -22,6 +24,8 @@ services:
       POSTGRES_PASSWORD: admin
     volumes:
       - ./pgg_data:/var/lib/postgresql/data
+    networks:
+      - webnet
 
   # TimescaleDB Extension
   timescaledb:
@@ -34,6 +38,11 @@ services:
       POSTGRES_PASSWORD: admin
       TSDB_TELEMETRY_DB: iot_timescaledb  # Specify TimescaleDB database name
     command: ["postgres", "-c", "shared_preload_libraries=timescaledb"]
+    networks:
+      - webnet
 
 volumes:
   postgres_data:  # Volume for PostgreSQL data persistence
+
+networks:
+  webnet:

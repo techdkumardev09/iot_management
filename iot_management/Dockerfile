@@ -15,12 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files to the working directory
 COPY . /app/
 
-# Run Django migrations during image build
-RUN python manage.py makemigrations
-RUN python manage.py migrate
 
-
-# Run Django migrations during image build
-RUN python manage.py makemigrations app
-RUN python manage.py migrate app
-
+# Run the application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
