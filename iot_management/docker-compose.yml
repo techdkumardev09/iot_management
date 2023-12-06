@@ -14,18 +14,24 @@ services:
       - db
     networks:
       - webnet
- 
+    env_file:
+      - .env  # Update with the path to your .env file
+
   # PostgreSQL Service
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: iotdevice_db
-      POSTGRES_USER: admin_user
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: ${POSTGRES_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
     volumes:
-      - ./pgg_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - webnet
+    env_file:
+      - .env  # Update with the path to your .env file
 
   # TimescaleDB Extension
   timescaledb:
@@ -33,13 +39,15 @@ services:
     depends_on:
       - db
     environment:
-      POSTGRES_DB: iotdevice_db
-      POSTGRES_USER: admin_user
-      POSTGRES_PASSWORD: admin
-      TSDB_TELEMETRY_DB: iot_timescaledb  # Specify TimescaleDB database name
+      POSTGRES_DB: ${POSTGRES_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TSDB_TELEMETRY_DB: ${TSDB_TELEMETRY_DB}
     command: ["postgres", "-c", "shared_preload_libraries=timescaledb"]
     networks:
       - webnet
+    env_file:
+      - .env  # Update with the path to your .env file
 
 volumes:
   postgres_data:  # Volume for PostgreSQL data persistence

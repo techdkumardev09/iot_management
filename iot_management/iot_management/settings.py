@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,22 +90,23 @@ WSGI_APPLICATION = 'iot_management.wsgi.application'
 
 
 
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iotdevice_db',
-        'USER': 'admin_user',
-        'PASSWORD': 'admin',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_NAME'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     },
     'timescaledb': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iotdevice_db',
-        'USER': 'admin_user',
-        'PASSWORD': 'admin',
-        'HOST': 'timescaledb',  # Docker service name for TimescaleDB
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_NAME'),  # Same as default database name
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('TIMESCALE_DB_HOST'),  # Use environment variable for TimescaleDB host
+        'PORT': os.getenv('POSTGRES_PORT'),  # Same as default database port
     }
 }
 
