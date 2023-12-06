@@ -8,10 +8,7 @@ The IoT Device Management Platform is a comprehensive solution designed to facil
 - [IoT Device Management Platform](#iot-device-management-platform)
   - [Key Features](#key-features)
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [Configuration](#configuration)
-  - [Contributing](#contributing)
-  - [License](#license)
+
 
 ## Key Features
 
@@ -33,15 +30,18 @@ Follow these steps to set up and run the project on your system:
 git clone <repository-url>
 cd <project-directory>
 
-2. Build the Project
+2. Make .env file in your repository
+cp .env example-env 
+
+3. Build the Project
 sudo make build
 
-3. Make Migrations
+4. Make Migrations
 Open a new terminal window and navigate to the project directory:
 cd <project-directory>
 # Run the following command to create database migrations:
 sudo make makemigrations
 
-4. Apply Migrations
+5. Apply Migrations
 # In the same terminal window, apply the migrations to set up the database:
 sudo make migrate
